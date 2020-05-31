@@ -1,0 +1,29 @@
+.wrapper-list-projects {
+  display: flex;
+  flex-wrap: wrap;
+
+  .content-cards {
+    flex-basis: 98%;
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: black;
+    height: 100px;
+    margin: 2%;
+  }
+}
+
+@media(min-width: 767px) {
+  .wrapper-list-projects {
+    .content-cards {
+      flex-basis: 48%;
+    }
+  }
+}
+
+@media(min-width: 1120px) {
+  .wrapper-list-projects {
+    .content-cards {
+      flex-basis: 31%;
+    }
+  }
+}
