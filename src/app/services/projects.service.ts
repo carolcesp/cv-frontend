@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Project } from '../models/project';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,23 +9,32 @@ import { Project } from '../models/project';
 export class ProjectsService {
 
   listProjects: Project[];
+  baseUrl: string;
+  tokenUrl: String;
+  projectsUrl: String;
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
+    this.baseUrl = 'https://cv-back-carol.herokuapp.com/';
+    this.tokenUrl = 'api/token';
+    this.projectsUrl = 'api/proyectos';
 
-    this.listProjects = new Array ({
-      name: 'Carolinna',
-      description: 'Mi curriculum',
-      images: [],
-      url: 'http://www.carolina.es',
-      year: 2020,
-      client: 'caroline',
-      urlClient: 'http://www.carolina.es',
-      categories: 'web',
-      tecnologies: 'Angular and NodeJs'
+    this.getToken();
+  }
+
+  getToken(): void {
+    let objectToken: any;
+    this.httpClient.get(this.baseUrl + this.tokenUrl).subscribe( data => {
+      objectToken = data;
+      localStorage.setItem('token',objectToken.token);
     })
   }
 
-  getProjects() {
-      return this.listProjects;
+  getAllProjects() : Promise<Project[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'access-token': localStorage.getItem('token')
+      })
+    };
+    return this.httpClient.get<Project[]>(this.baseUrl + this.projectsUrl, httpOptions).toPromise()
   }
 }

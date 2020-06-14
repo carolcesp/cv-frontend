@@ -11,12 +11,15 @@ export class ListProjectsComponent implements OnInit {
 
   listProjects: Project[];
 
-  constructor(private ProjectsService: ProjectsService) {
-    this.listProjects = this.ProjectsService.getProjects();
-    console.log(this.listProjects)
-  }
+  constructor(private projectsService: ProjectsService) {  }
 
   ngOnInit(): void {
+    this.getListProjects();
+  }
+
+  async getListProjects() {
+    this.listProjects = await this.projectsService.getAllProjects();
+    console.log('>> listProjects',this.listProjects)
   }
 
 }
