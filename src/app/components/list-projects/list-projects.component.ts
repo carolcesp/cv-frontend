@@ -10,6 +10,7 @@ import { ProjectsService } from '../../services/projects.service';
 export class ListProjectsComponent implements OnInit {
 
   listProjects: Project[];
+  listCategories: string[];
 
   constructor(private projectsService: ProjectsService) {  }
 
@@ -20,6 +21,22 @@ export class ListProjectsComponent implements OnInit {
   async getListProjects() {
     this.listProjects = await this.projectsService.getAllProjects();
     console.log('>> listProjects',this.listProjects)
+
+    let categories = this.listProjects.map(element => {
+      return element.categoria;
+    });
+    this.listCategories = Array.from(new Set(categories));
+
+    console.log('>> listCategories',this.listCategories)
+  }
+
+  async getCategory(category = '') {
+    if (category !== '') {
+      this.listProjects = await this.projectsService.getProjectsByCategory(category);
+    } else {
+      this.listProjects = await this.projectsService.getAllProjects();
+
+    }
   }
 
 }

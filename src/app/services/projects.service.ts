@@ -10,9 +10,9 @@ export class ProjectsService {
 
   listProjects: Project[];
   baseUrl: string;
-  tokenUrl: String;
-  projectsUrl: String;
-
+  tokenUrl: string;
+  projectsUrl: string;
+  categoryUrl: string
   constructor(private httpClient: HttpClient) {
     this.baseUrl = 'https://cv-back-carol.herokuapp.com/';
     this.tokenUrl = 'api/token';
@@ -37,4 +37,14 @@ export class ProjectsService {
     };
     return this.httpClient.get<Project[]>(this.baseUrl + this.projectsUrl, httpOptions).toPromise()
   }
+
+  getProjectsByCategory(category: string) : Promise<Project[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'access-token': localStorage.getItem('token')
+      })
+    };
+    return this.httpClient.get<Project[]>(this.baseUrl + this.projectsUrl + '/' + category, httpOptions).toPromise();
+  };
+
 }

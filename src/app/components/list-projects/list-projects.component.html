@@ -1,4 +1,13 @@
-<div class="wrapper-list-projects">
-  <div class="content-cards"></div>
+<div class="content-filter">
+  <ul>
+    <li (click)="getCategory()">Todos</li>
+    <li (click)="getCategory(element)" *ngFor="let element of listCategories">{{element}}</li>
+  </ul>
+</div>
 
+<div class="wrapper-list-projects">
+  <div class="content-cards" *ngFor="let project of listProjects">
+    <h2>{{project.titulo}}</h2>
+    <a [routerLink]="['/projects', project._id]">Ver detalle</a>
+  </div>
 </div>

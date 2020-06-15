@@ -1,3 +1,20 @@
+.content-filter{
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  ul {
+    list-style: none;
+    li {
+      display: inline-block;
+      padding: 10px;
+      background-color: black;
+      color: white;
+      margin-left: 10px;
+      font-size: 120%;
+      cursor: pointer;
+    }
+  }
+}
 .wrapper-list-projects {
   display: flex;
   flex-wrap: wrap;
@@ -6,7 +23,7 @@
     flex-basis: 98%;
     padding-left: 8px;
     padding-right: 8px;
-    background-color: black;
+    background-color: lightpink;
     height: 100px;
     margin: 2%;
   }
